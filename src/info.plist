@@ -1,0 +1,139 @@
+.zprofile is loaded
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>bundleid</key>
+  <string>com.stone.alfred.open-path</string>
+  <key>connections</key>
+  <dict>
+    <key>A1B2C3D4-E5F6-4789-ABCD-0123456789AB</key>
+    <array>
+      <dict>
+        <key>destinationuid</key>
+        <string>B1C2D3E4-F5A6-4789-BCDE-1234567890AB</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>vitoclose</key>
+        <false/>
+      </dict>
+    </array>
+    <key>B1C2D3E4-F5A6-4789-BCDE-1234567890AB</key>
+    <array/>
+  </dict>
+  <key>createdby</key>
+  <string>stone</string>
+  <key>description</key>
+  <string>Open a pasted file path, folder path, or URL with macOS. Show an alert when it cannot be opened.</string>
+  <key>disabled</key>
+  <false/>
+  <key>name</key>
+  <string>Open Path</string>
+  <key>objects</key>
+  <array>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>argumenttype</key>
+        <integer>1</integer>
+        <key>keyword</key>
+        <string>go</string>
+        <key>skipuniversalaction</key>
+        <true/>
+        <key>subtext</key>
+        <string>Paste a path or URL</string>
+        <key>text</key>
+        <string>Open path</string>
+        <key>withspace</key>
+        <true/>
+      </dict>
+      <key>type</key>
+      <string>alfred.workflow.input.keyword</string>
+      <key>uid</key>
+      <string>A1B2C3D4-E5F6-4789-ABCD-0123456789AB</string>
+      <key>version</key>
+      <integer>1</integer>
+    </dict>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>concurrently</key>
+        <false/>
+        <key>escaping</key>
+        <integer>102</integer>
+        <key>script</key>
+        <string>input="$1"
+
+# Make the common ~/path notation work even though it arrives as an argument.
+case "$input" in
+  '~') input="$HOME" ;;
+  '~/'*) input="$HOME/${input#~/}" ;;
+esac
+
+alert() {
+  /usr/bin/osascript -e 'on run argv' -e 'display alert "Open Path" message (item 1 of argv) as critical' -e 'end run' "$1"
+}
+
+if [ -z "$input" ]; then
+  alert 'Please enter a path or URL.'
+  exit 0
+fi
+
+case "$input" in
+  *://*|mailto:*|tel:*) ;;
+  *)
+    if [ ! -e "$input" ]; then
+      alert "Path does not exist: $input"
+      exit 0
+    fi
+    ;;
+esac
+
+case "$input" in
+  *://*|mailto:*|tel:*)
+    open "$input" || alert "Could not open: $input"
+    ;;
+  *)
+    if [ -d "$input" ]; then
+      open "$input" || alert "Could not open: $input"
+    else
+      # Reveal files in Finder without opening their associated application.
+      open -R "$input" || alert "Could not reveal: $input"
+    fi
+    ;;
+esac</string>
+        <key>scriptargtype</key>
+        <integer>1</integer>
+        <key>scriptfile</key>
+        <string></string>
+        <key>type</key>
+        <integer>0</integer>
+      </dict>
+      <key>type</key>
+      <string>alfred.workflow.action.script</string>
+      <key>uid</key>
+      <string>B1C2D3E4-F5A6-4789-BCDE-1234567890AB</string>
+      <key>version</key>
+      <integer>2</integer>
+    </dict>
+  </array>
+  <key>readme</key>
+  <string>Usage: invoke Alfred, type go followed by a space and a file path, folder path, or URL, then press Return once. Folders and URLs open immediately; files are revealed and selected in Finder; invalid paths show an alert.</string>
+  <key>uidata</key>
+  <dict>
+    <key>A1B2C3D4-E5F6-4789-ABCD-0123456789AB</key>
+    <dict><key>xpos</key><real>65</real><key>ypos</key><real>105</real></dict>
+    <key>B1C2D3E4-F5A6-4789-BCDE-1234567890AB</key>
+    <dict><key>xpos</key><real>380</real><key>ypos</key><real>105</real></dict>
+  </dict>
+  <key>variables</key>
+  <dict/>
+  <key>version</key>
+  <string>1.3</string>
+  <key>webaddress</key>
+  <string></string>
+</dict>
+</plist>
+

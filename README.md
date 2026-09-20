@@ -1,14 +1,14 @@
 # Open Path for Alfred
 
-Open a file path, folder path, or URL from Alfred.
+通过 Alfred 打开文件路径、文件夹路径或 URL。
 
-## Usage
+## 使用方式
 
-1. Invoke Alfred and enter `go ` followed by a path or URL.
-2. Press Return once.
+1. 呼出 Alfred，输入 `go `，再输入路径或 URL。
+2. 按一次 Return。
 
-Folders open in Finder. Files are revealed and selected in Finder without opening their associated application. URLs open with macOS's default handler. Invalid paths show an alert.
+文件夹会在 Finder 中直接打开；文件会在 Finder 中显示并被选中，但不会启动关联应用；URL 会使用 macOS 的默认处理程序打开。无效路径会显示错误提示。
 
-## Source
+## 源码与发布
 
-`src/info.plist` is the workflow definition. The local `Open Path.alfredworkflow` export is deliberately ignored by Git and can later be attached to a GitHub Release for installation.
+`src/info.plist` 是工作流定义源码。本地的 `Open Path.alfredworkflow` 是可导入的安装包，刻意由 Git 忽略，之后可作为 GitHub Release 附件提供下载。

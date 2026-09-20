@@ -21,4 +21,4 @@
 
 ## 源码与发布
 
-`src/info.plist` 是工作流定义源码。本地的 `Open Path.alfredworkflow` 是可导入的安装包，刻意由 Git 忽略，之后可作为 GitHub Release 附件提供下载。
+`src/info.plist` 是工作流定义源码。本地的 `Open-Path-1.0.0.alfredworkflow` 是可导入的安装包，刻意由 Git 忽略，并作为 GitHub Release 附件提供下载。

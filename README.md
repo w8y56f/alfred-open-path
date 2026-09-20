@@ -1,4 +1,4 @@
-# Open Path for Alfred
+# Open Path for Alfred (macOS)
 
 通过 Alfred 打开文件路径、文件夹路径或 URL。
 

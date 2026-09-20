@@ -22,3 +22,9 @@
 ## 源码与发布
 
 `src/info.plist` 是工作流定义源码。本地的 `Open-Path-1.0.0.alfredworkflow` 是可导入的安装包，刻意由 Git 忽略，并作为 GitHub Release 附件提供下载。
+
+
+
+## 解决的痛点
+
+主要是为了解决 Alfred 自身在直接贴入一个路径，比如 /aa/bb/cc的时候，如果cc是一个目录并且是一个空目录的时候无法打开这个目录
